@@ -8,7 +8,7 @@ import Portal from "../portal/Portal";
 import useCartItems from "../hooks/useCartItems";
 
 const ShopHeader = () => {
-  const { cartItems, isLoading, error } = useCartItems();
+  const { cartItems, isLoading } = useCartItems();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const setModalOpenHandler = () => {

@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import useAddCartItem from "../hooks/useAddCartItem";
 import useCartItems from "../hooks/useCartItems";
 import QuantitySetter from "./QuantitySetter";
-
 interface ProductItemProps {
   id: number;
   name: string;
@@ -17,7 +16,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
-  const { cartItems, isLoading, error } = useCartItems();
+  const { cartItems } = useCartItems();
   const addMutation = useAddCartItem();
 
   // NOTE: data = cartItems (장바구니에 있는 아이템 리스트)
