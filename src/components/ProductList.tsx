@@ -11,8 +11,11 @@ import ProductItem from "./ProductItem";
 import Select from "./Select";
 import ShopHeader from "./ShopHeader";
 import styled, { keyframes } from "styled-components";
+import useCartItems from "../hooks/useCartItems";
 
 const ProductList = () => {
+  const { cartItems } = useCartItems();
+
   const {
     products,
     isLoading,
@@ -63,15 +66,23 @@ const ProductList = () => {
             />
           </S.SelectContainer>
           <S.ItemContainer>
-            {products.map(({ id, name, price, imageUrl }) => (
-              <ProductItem
-                key={crypto.randomUUID()}
-                id={id}
-                name={name}
-                price={price}
-                imageUrl={imageUrl}
-              />
-            ))}
+            {products.map(({ id, name, price, imageUrl }) => {
+              const cartItem = cartItems.find((item) => item.product.id === id);
+              const cartItemId = cartItem?.id;
+              const quantity = cartItem?.quantity ?? 0;
+
+              return (
+                <ProductItem
+                  key={crypto.randomUUID()}
+                  id={id}
+                  name={name}
+                  price={price}
+                  imageUrl={imageUrl}
+                  cartItemId={cartItemId}
+                  quantity={quantity}
+                />
+              );
+            })}
             {isLoading && <S.Spinner />}
             <div ref={setTarget}></div>
           </S.ItemContainer>

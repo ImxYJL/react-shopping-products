@@ -1,7 +1,6 @@
 import { API_URL } from "../constants/url";
 import { cartClient } from "./cartClient";
 import { Product } from "./products";
-
 export interface ICartItem {
   id: number;
   quantity: number;

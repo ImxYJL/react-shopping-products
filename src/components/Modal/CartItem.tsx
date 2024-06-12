@@ -20,17 +20,7 @@ const CartItem = ({
   const deleteMutation = useDeleteCartItem();
 
   const clickDeleteCartItemHandler = () => {
-    try {
-      if (cartItemId) {
-        deleteMutation.mutate(cartItemId);
-      } else {
-        alert("해당 상품이 장바구니에 없습니다.");
-      }
-    } catch (error) {
-      alert(
-        "상품을 장바구니에서 빼는 과정에서 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
-      );
-    }
+    deleteMutation.mutate(cartItemId);
   };
 
   return (

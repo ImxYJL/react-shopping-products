@@ -4,11 +4,15 @@ import { GlobalLayout, GlobalStyle } from "./styles/GlobalStyle.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import QueryErrorBoundary from "./components/Error/QueryErrorBoundary.tsx";
+import { ToastProvider } from "./stores/ToastProvider.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       throwOnError: true,
+    },
+    mutations: {
+      networkMode: "always",
     },
   },
 });
@@ -16,13 +20,20 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-      <QueryErrorBoundary>
-        <GlobalStyle />
-        <GlobalLayout>
-          <App />
-        </GlobalLayout>
-      </QueryErrorBoundary>
+      <ToastProvider>
+        <div style={{ fontSize: 20 }}>
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition="bottom-left"
+          />
+        </div>
+        <QueryErrorBoundary>
+          <GlobalStyle />
+          <GlobalLayout>
+            <App />
+          </GlobalLayout>
+        </QueryErrorBoundary>
+      </ToastProvider>
     </QueryClientProvider>
   </>
 );
